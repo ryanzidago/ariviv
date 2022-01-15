@@ -10,4 +10,27 @@ import io.ktor.server.testing.*
 import com.ryanzidago.plugins.*
 
 class ApplicationTest {
+    @Test
+    fun graphQLPlaygroundIsReachable() {
+        withTestApplication(Application::module) {
+            handleRequest(HttpMethod.Get, "/graphql").apply {
+                assertEquals(HttpStatusCode.OK, response.status())
+                assert(response.content!!.contains("GraphQL Playground"))
+            }
+        }
+    }
+
+    @Test
+    fun usersCanBeQueriedViaGraphQL() = withTestApplication(Application::module) {
+        val expectedResponse = "{\"data\":{\"users\":[{\"name\":\"Jean\"},{\"name\":\"Günther\"},{\"name\":\"Julie\"}]}}"
+        val usersQuery = "{\"operationName\":null,\"variables\":{},\"query\":\"{\n  users {\n    name\n  }\n}\n\"}"
+
+        with(handleRequest(HttpMethod.Post, "/graphql"){
+            addHeader(HttpHeaders.ContentType, ContentType.Application.Json.toString())
+            setBody(usersQuery)
+        }) {
+            assertEquals(HttpStatusCode.OK, response.status())
+            assertEquals(response.content!!, expectedResponse)
+        }
+    }
 }
