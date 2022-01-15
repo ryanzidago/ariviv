@@ -7,6 +7,7 @@ import com.ryanzidago.ariviv.domain_events.DomainEventType
 import com.ryanzidago.ariviv.domain_models.User
 import com.ryanzidago.ariviv.repositories.DomainEventRepository
 import com.ryanzidago.ariviv.repositories.UserRepository
+import io.ktor.features.*
 import java.time.LocalDateTime
 
 class MarkExerciseSessionAsFinishedService {
@@ -15,6 +16,8 @@ class MarkExerciseSessionAsFinishedService {
         if (user != null) {
             val finishedAt = updateExerciseFinishedAtForUser(user)
             createExerciseSessionMarkedAsFinishedDomainEvent(user, finishedAt)
+        } else {
+            throw NotFoundException("No user with name $name could be found")
         }
 
         for (domainEvent in domainEvents) {

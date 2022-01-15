@@ -47,4 +47,32 @@ class ApplicationTest {
             assertEquals(response.content!!, expectedResponse)
         }
     }
+
+    @Test
+    fun exerciseSessionsCanBeMarkedAsFinishedViaGraphQL() = withTestApplication(Application::module) {
+        val expectedResponse = "{\"data\":{\"markExerciseSessionAsFinished\":\"Congrats Jean! You finished a session full of exercises!\"}}"
+        val markExerciseSessionAsFinishedMutation = "{\"operationName\":null,\"variables\":{},\"query\":\"mutation {\\n  markExerciseSessionAsFinished(name: \\\"Jean\\\")\\n}\\n\"}"
+
+        with(handleRequest(HttpMethod.Post, "/graphql") {
+            addHeader(HttpHeaders.ContentType, ContentType.Application.Json.toString())
+            setBody(markExerciseSessionAsFinishedMutation)
+        }) {
+            assertEquals(HttpStatusCode.OK, response.status())
+            assertEquals(response.content!!, expectedResponse)
+        }
+    }
+
+    @Test
+    fun errorIsThrownIfNoUserCouldBeFoundWhenAttemptingToMarkAnExerciseSessionAsFinished() = withTestApplication(Application::module) {
+        val markExerciseSessionAsFinishedMutation = "{\"operationName\":null,\"variables\":{},\"query\":\"mutation {\\n  markExerciseSessionAsFinished(name: \\\"Wolfgang\\\")\\n}\\n\"}"
+        val expectedResponse = "{\"errors\":[{\"message\":\"No user with name Wolfgang could be found\",\"locations\":[{\"line\":2,\"column\":3}],\"path\":[]}]}"
+
+        with(handleRequest(HttpMethod.Post, "/graphql") {
+            addHeader(HttpHeaders.ContentType, ContentType.Application.Json.toString())
+            setBody(markExerciseSessionAsFinishedMutation)
+        }) {
+            assertEquals(HttpStatusCode.OK, response.status())
+            assertEquals(response.content!!, expectedResponse)
+        }
+    }
 }
