@@ -12,4 +12,10 @@ class UserRepositoryTest {
         UserRepository().createUser(user)
         assert(users.contains(user))
     }
+
+    @Test
+    fun listUsersTest() {
+        val users = UserRepository().listUsers()
+        assert(users is List<User>)
+    }
 }   
