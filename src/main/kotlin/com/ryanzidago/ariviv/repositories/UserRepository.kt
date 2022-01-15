@@ -9,6 +9,10 @@ class UserRepository {
         users.add(user)
     }
 
+    fun getUserByName(name: String): User? {
+        return users.find { it.name == name }
+    }
+
     fun listUsers(): List<User> {
         return users
     }
