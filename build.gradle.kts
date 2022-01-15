@@ -1,6 +1,7 @@
 val ktor_version: String by project
 val kotlin_version: String by project
 val logback_version: String by project
+val kgraphql_version: String by project
 
 plugins {
     application
@@ -15,6 +16,7 @@ application {
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -23,4 +25,9 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:$logback_version")
     testImplementation("io.ktor:ktor-server-tests:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
+
+
+    // Kgraphql
+    implementation("com.apurebase:kgraphql:$kgraphql_version")
+    implementation("com.apurebase:kgraphql-ktor:$kgraphql_version")
 }
