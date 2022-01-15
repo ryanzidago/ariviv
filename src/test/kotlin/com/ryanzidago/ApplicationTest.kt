@@ -33,4 +33,18 @@ class ApplicationTest {
             assertEquals(response.content!!, expectedResponse)
         }
     }
+
+    @Test
+    fun userCanBeRegisteredViaGraphQL() = withTestApplication(Application::module) {
+        val expectedResponse = "{\"data\":{\"registerUser\":{\"name\":\"Sophie\",\"email\":\"sophie@email.fr\"}}}"
+        val createUserMutation = "{\"operationName\":null,\"variables\":{},\"query\":\"mutation {\\n  registerUser(name: \\\"Sophie\\\", email: \\\"sophie@email.fr\\\") {\\n    name\\n    email\\n  }\\n}\\n\"}"
+
+        with(handleRequest(HttpMethod.Post, "/graphql") {
+            addHeader(HttpHeaders.ContentType, ContentType.Application.Json.toString())
+            setBody(createUserMutation)
+        }) {
+            assertEquals(HttpStatusCode.OK, response.status())
+            assertEquals(response.content!!, expectedResponse)
+        }
+    }
 }
