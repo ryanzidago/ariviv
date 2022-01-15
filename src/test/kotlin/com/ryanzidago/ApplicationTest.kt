@@ -11,6 +11,17 @@ import com.ryanzidago.plugins.*
 
 class ApplicationTest {
     @Test
+    fun graphQLDocumentationIsReachable() {
+        val expectedTitlePage = "Graphql schema documentation"
+
+        withTestApplication(Application::module){
+            handleRequest(HttpMethod.Get, "/graphql/doc/index.html").apply {
+                assertEquals(HttpStatusCode.OK, response.status())
+                assert(response.content!!.contains(expectedTitlePage))
+            }
+        }
+    }
+    @Test
     fun graphQLPlaygroundIsReachable() {
         withTestApplication(Application::module) {
             handleRequest(HttpMethod.Get, "/graphql").apply {
