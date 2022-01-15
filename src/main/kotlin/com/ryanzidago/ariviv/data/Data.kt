@@ -1,5 +1,6 @@
 package com.ryanzidago.ariviv.data
 
+import com.ryanzidago.ariviv.domain_events.DomainEvent
 import com.ryanzidago.ariviv.domain_models.User
 
 val users = mutableListOf<User>(
@@ -7,3 +8,5 @@ val users = mutableListOf<User>(
     User("Günther", "guenther@email.de"),
     User("Julie", "julie@email.fr")
 )
+
+val domainEvents = mutableListOf<DomainEvent>()
