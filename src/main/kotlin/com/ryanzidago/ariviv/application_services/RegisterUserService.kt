@@ -1,13 +1,11 @@
 package com.ryanzidago.ariviv.application_services
 
 import com.ryanzidago.ariviv.data.domainEvents
-import com.ryanzidago.ariviv.data.state
 import com.ryanzidago.ariviv.domain_events.DomainEvent
 import com.ryanzidago.ariviv.domain_events.DomainEventType
 import com.ryanzidago.ariviv.domain_models.User
 import com.ryanzidago.ariviv.repositories.DomainEventRepository
 import com.ryanzidago.ariviv.repositories.UserRepository
-import java.time.LocalDateTime
 
 class RegisterUserService {
     fun perform(name: String, email: String): User {
