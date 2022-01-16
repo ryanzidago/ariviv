@@ -20,8 +20,8 @@ source .env
 It is also possible to not source the [.env](.env) file and use the application's default configuration. `.env` contains two environment variables which you can change to determine how often users should receive notifications to remind them to exercise:
 
 ```
-TIME_TO_WAIT_BEFORE_CHECKING_IF_REMINDER_TO_EXERCISE_SHOULD_BE_SENT_IN_MS
-REMINDER_TO_EXERCISE_DELAY_IN_MS
+TIME_TO_WAIT_BEFORE_CHECKING_IF_REMINDER_TO_EXERCISE_SHOULD_BE_SENT_IN_MS=3000
+REMINDER_TO_EXERCISE_DELAY_IN_MS=3000
 ```
 
 
