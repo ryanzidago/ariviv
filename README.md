@@ -19,17 +19,23 @@ source .env
 ```
 It is also possible to not source the `.env` file and use the application's default configuration.
 
-## Using the application
+## How to use the application
 1. visit the GraphQL playground [endpoint](http://localhost:8080/graphql) 
 2. create a user with the `registerUser` mutation and fetch its ID from the response
 3. with the ID from the previously created user, send a `markExerciseSessionAsFinished` mutation
 4. take a look at the log printed to the console or to the [log file](log/ariviv.log). After 3 seconds (assuming the `.env` file has been sourced, otherwise you will have to wait for the time period defined in the [application](src/main/kotlin/com/ryanzidago/Application.kt)), a reminder to exercise for the previously created user will be displayed
 
-## Understanding how the appplication works
+## How the appplication works
 1. a user needs to register first
 2. every registered user is automatically enrolled in a so called exercise routine (except for the users that were automatically seeded in the application)
 3. their exercise routine only starts after they have marked their first exercise session as complete
 4. if they have not marked an exercise routine as complete recently, a log message is printed to the console and sent to disc.
+
+## How the application handles requests
+1. a request comes in via the [GraphQL API](src/main/kotlin/com/ryanzidago/ariviv/graphql/GraphQLSchema.kt)
+2. the application calls the [service](src/main/kotlin/com/ryanzidago/ariviv/application_services) required to handle the request
+3. the application service fetches the necessary [domain model](src/main/kotlin/com/ryanzidago/ariviv/domain_models) from a [repository](src/main/kotlin/com/ryanzidago/ariviv/repositories), updates it, and send it back to the repository to be "saved"
+4. finally, one or severals [domain events](src/main/kotlin/com/ryanzidago/ariviv/domain_events/DomainEvent.kt) are "appended" to a list of all current domain events that happened in the past
 
 ## Extras
 
