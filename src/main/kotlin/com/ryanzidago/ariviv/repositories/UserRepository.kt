@@ -6,7 +6,11 @@ import com.ryanzidago.ariviv.domain_models.User
 
 class UserRepository {
     fun createUser(user: User) {
-        users.add(user)
+        if (users.any { it.email == user.email }) {
+            throw Exception("Email address already taken")
+        } else {
+            users.add(user)
+        }
     }
 
     fun getUserByName(name: String): User? {

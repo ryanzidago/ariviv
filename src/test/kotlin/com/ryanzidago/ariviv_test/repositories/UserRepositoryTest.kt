@@ -1,17 +1,29 @@
 package com.ryanzidago.ariviv_test.repositories
 
+import com.ryanzidago.ariviv.data.defaultUsers
 import com.ryanzidago.ariviv.data.users
 import com.ryanzidago.ariviv.domain_models.User
 import com.ryanzidago.ariviv.repositories.UserRepository
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 
 class UserRepositoryTest {
     @Test
-    fun createUserTest() {
+    fun createUserFunctionCreatesAUser() {
         val user = User("Hyacinthe", "hyacinthe@email.fr")
         UserRepository().createUser(user)
         assert(users.contains(user))
+
+        users = defaultUsers()
+    }
+
+    @Test
+    fun createUserFunctionDoesNotCreateAUserIfThereExistOneWithTheSameEmailAddress() {
+        val user = User("Jean", "jean@email.fr")
+        assertFailsWith<java.lang.Exception> {
+            UserRepository().createUser(user)
+        }
     }
 
     @Test
