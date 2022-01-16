@@ -1,8 +1,12 @@
 package com.ryanzidago
 
 import com.ryanzidago.ariviv.data.defaultUsers
+import com.ryanzidago.ariviv.data.domainEvents
 import com.ryanzidago.ariviv.data.users
+import com.ryanzidago.ariviv.domain_events.DomainEvent
+import com.ryanzidago.ariviv.domain_events.DomainEventType
 import com.ryanzidago.ariviv.domain_models.User
+import com.ryanzidago.ariviv.repositories.DomainEventRepository
 import io.ktor.routing.*
 import io.ktor.http.*
 import io.ktor.application.*
@@ -77,6 +81,21 @@ class ApplicationTest {
             assertEquals(response.content!!, expectedResponse)
         }
         users = defaultUsers()
+    }
+
+    @Test
+    fun usersReceiveReminderToExerciseAfterTheyHaveMarkedAnExerciseSessionAsFinishedAndTheyHaveNotExercisesRecently() = withTestApplication(Application::module) {
+        val markExerciseSessionAsFinishedMutation = "{\"operationName\":null,\"variables\":{},\"query\":\"mutation {\\n  markExerciseSessionAsFinished(name: \\\"Jean\\\")\\n}\\n\"}"
+        val payload = HashMap<Any, Any>()
+        payload["name"] = "Jean"
+        val expectedDomainEvent = DomainEvent(DomainEventType.ReminderToStartExerciseSessionSent, payload)
+
+        with(handleRequest(HttpMethod.Post, "/graphql") {
+            addHeader(HttpHeaders.ContentType, ContentType.Application.Json.toString())
+            setBody(markExerciseSessionAsFinishedMutation)
+        }) {
+            assert(domainEvents.contains(expectedDomainEvent))
+        }
     }
 
     @Test

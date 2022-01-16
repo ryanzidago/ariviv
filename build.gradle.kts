@@ -31,3 +31,8 @@ dependencies {
     implementation("com.apurebase:kgraphql:$kgraphql_version")
     implementation("com.apurebase:kgraphql-ktor:$kgraphql_version")
 }
+
+tasks.withType<Test> {
+    environment("REMINDER_TO_EXERCISE_DELAY_IN_MS", "10")
+    environment("TIME_TO_WAIT_BEFORE_CHECKING_IF_REMINDER_TO_EXERCISE_SHOULD_BE_SENT_IN_MS", "10")
+}

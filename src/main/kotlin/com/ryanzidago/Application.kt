@@ -9,13 +9,18 @@ import io.ktor.http.content.*
 import io.ktor.routing.*
 import io.ktor.features.DefaultHeaders
 
-val  reminderToExerciseDelayInMS: Long = System.getenv("REMINDER_TO_EXERCISE_DELAY_IN_MS")?.toLong() ?: (((1_000 * 60) * 60) * 24) // 1 day in milliseconds
+val timeToWaitBeforeCheckingIfReminderToExerciseShouldBeSentInMS: Long =
+    System.getenv("TIME_TO_WAIT_BEFORE_CHECKING_IF_REMINDER_TO_EXERCISE_SHOULD_BE_SENT_IN_MS")?.toLong() ?: (1_000 * 5) // 5 seconds in milliseconds
+
+val reminderToExerciseDelayInMS: Long =
+    System.getenv("REMINDER_TO_EXERCISE_DELAY_IN_MS")?.toLong() ?: (((1_000 * 60) * 60) * 24) // 1 day in milliseconds
 
 fun main(args: Array<String>): Unit =
     io.ktor.server.netty.EngineMain.main(args)
 
 @Suppress("unused") // application.conf references the main function. This annotation prevents the IDE from marking it as unused.
 fun Application.module(testing: Boolean = false) {
+
     install(DefaultHeaders)
     configureRouting()
 

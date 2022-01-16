@@ -5,6 +5,7 @@ import com.ryanzidago.ariviv.domain_events.DomainEvent
 import com.ryanzidago.ariviv.domain_events.DomainEventType
 import com.ryanzidago.ariviv.repositories.DomainEventRepository
 import com.ryanzidago.reminderToExerciseDelayInMS
+import com.ryanzidago.timeToWaitBeforeCheckingIfReminderToExerciseShouldBeSentInMS
 import io.ktor.application.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.*
@@ -16,7 +17,7 @@ class SendReminderToExerciseService() {
     fun schedule() {
         GlobalScope.launch(Dispatchers.IO) {
             while (true) {
-                delay(1_000)
+                delay(timeToWaitBeforeCheckingIfReminderToExerciseShouldBeSentInMS)
                 for ((userName, lastExerciseSessionFinishedAt) in state) {
                     send(userName, lastExerciseSessionFinishedAt)
                 }
