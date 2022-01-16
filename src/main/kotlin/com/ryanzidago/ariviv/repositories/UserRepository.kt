@@ -18,6 +18,10 @@ class UserRepository {
         return users.find { it.name == name }
     }
 
+    fun getUserByEmail(email: String): User? {
+        return users.find { it.email == email}
+    }
+
     fun getUserById(id: UUID): User? {
         return users.find { it.id == id }
     }

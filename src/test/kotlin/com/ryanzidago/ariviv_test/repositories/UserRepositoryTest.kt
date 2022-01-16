@@ -46,6 +46,12 @@ class UserRepositoryTest {
     }
 
     @Test
+    fun getUserByEmailTest() {
+        val user = UserRepository().getUserByEmail("jean@email.fr")
+        assertEquals(user, User("Jean", "jean@email.fr", jeanUUID))
+    }
+
+    @Test
     fun listUsersTest() {
         val users = UserRepository().listUsers()
         assert(users is List<User>)
