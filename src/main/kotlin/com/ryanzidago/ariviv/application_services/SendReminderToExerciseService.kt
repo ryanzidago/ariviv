@@ -16,7 +16,6 @@ import java.time.Duration
 import java.util.*
 import kotlin.collections.HashMap
 
-
 class SendReminderToExerciseService() {
     fun schedule() {
         GlobalScope.launch(Dispatchers.IO) {

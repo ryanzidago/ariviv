@@ -6,8 +6,6 @@ import com.ryanzidago.ariviv.data.domainEvents
 import com.ryanzidago.ariviv.data.jeanUUID
 import com.ryanzidago.ariviv.domain_events.DomainEvent
 import com.ryanzidago.ariviv.domain_events.DomainEventType
-import com.ryanzidago.reminderToExerciseDelayInMS
-import com.ryanzidago.timeToWaitBeforeCheckingIfReminderToExerciseShouldBeSentInMS
 import java.time.LocalDateTime
 import java.time.Month
 import kotlin.test.Test
