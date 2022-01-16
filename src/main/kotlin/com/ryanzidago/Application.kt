@@ -9,6 +9,8 @@ import io.ktor.http.content.*
 import io.ktor.routing.*
 import io.ktor.features.DefaultHeaders
 
+val  reminderToExerciseDelayInMS: Long = System.getenv("REMINDER_TO_EXERCISE_DELAY_IN_MS")?.toLong() ?: (((1_000 * 60) * 60) * 24) // 1 day in milliseconds
+
 fun main(args: Array<String>): Unit =
     io.ktor.server.netty.EngineMain.main(args)
 
