@@ -35,7 +35,7 @@ class SendReminderToExerciseService() {
         if (Duration.between(lastExerciseSessionFinishedAt, LocalDateTime.now()) > Duration.ofMillis(reminderToExerciseDelayInMS)){
             val user = UserRepository().getUserById(id)
             if (user != null) {
-                logger.info("\n\n [***] ${user.name}! Why haven't you completed your exercise yet?! [***] \n\n")
+                logger.info("[***] ${user.name}! Why haven't you completed your exercise yet?! [***]")
                 appendDomainEvent(user)
             } else {
                 val errorMessage = "User with id $id not found"

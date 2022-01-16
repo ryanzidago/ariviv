@@ -16,10 +16,6 @@ class RegisterUserService {
         createUserRegisteredDomainEvent(user)
         createUserEnrolledInExerciseProgram(user)
 
-        for (domainEvent in domainEvents) {
-            logger.info("${domainEvent.type}::${domainEvent.payload}")
-        }
-
         return user
     }
 

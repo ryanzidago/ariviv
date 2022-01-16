@@ -26,10 +26,6 @@ class MarkExerciseSessionAsFinishedService {
             logger.error(errorMessage)
             throw NotFoundException(errorMessage)
         }
-
-        for (domainEvent in domainEvents) {
-            println("${domainEvent.type}::${domainEvent.payload}")
-        }
     }
 
     private fun updateExerciseFinishedAtForUser(user: User): LocalDateTime {

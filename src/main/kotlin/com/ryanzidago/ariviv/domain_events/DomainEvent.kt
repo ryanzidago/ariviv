@@ -8,4 +8,3 @@ enum class DomainEventType {
 }
 
 data class DomainEvent(val type: DomainEventType, val payload: HashMap<Any, Any>)
-
