@@ -7,19 +7,24 @@ import com.ryanzidago.ariviv.domain_events.DomainEventType
 import com.ryanzidago.ariviv.domain_models.User
 import com.ryanzidago.ariviv.repositories.DomainEventRepository
 import com.ryanzidago.ariviv.repositories.UserRepository
+import com.ryanzidago.getLogger
 import io.ktor.features.*
 import java.time.LocalDateTime
 import java.util.*
 import kotlin.collections.HashMap
 
 class MarkExerciseSessionAsFinishedService {
+    private val logger = getLogger()
+
     fun perform(id: UUID) {
         val user = UserRepository().getUserById(id)
         if (user != null) {
             val finishedAt = updateExerciseFinishedAtForUser(user)
             createExerciseSessionMarkedAsFinishedDomainEvent(user, finishedAt)
         } else {
-            throw NotFoundException("No user with id $id could be found")
+            val errorMessage = "No user with id $id could be found"
+            logger.error(errorMessage)
+            throw NotFoundException(errorMessage)
         }
 
         for (domainEvent in domainEvents) {

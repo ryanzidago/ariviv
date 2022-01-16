@@ -6,6 +6,7 @@ import com.ryanzidago.ariviv.domain_events.DomainEventType
 import com.ryanzidago.ariviv.domain_models.User
 import com.ryanzidago.ariviv.repositories.DomainEventRepository
 import com.ryanzidago.ariviv.repositories.UserRepository
+import com.ryanzidago.getLogger
 import com.ryanzidago.reminderToExerciseDelayInMS
 import com.ryanzidago.timeToWaitBeforeCheckingIfReminderToExerciseShouldBeSentInMS
 import io.ktor.application.*
@@ -17,6 +18,8 @@ import java.util.*
 import kotlin.collections.HashMap
 
 class SendReminderToExerciseService() {
+    private val logger = getLogger()
+
     fun schedule() {
         GlobalScope.launch(Dispatchers.IO) {
             while (true) {
@@ -32,10 +35,12 @@ class SendReminderToExerciseService() {
         if (Duration.between(lastExerciseSessionFinishedAt, LocalDateTime.now()) > Duration.ofMillis(reminderToExerciseDelayInMS)){
             val user = UserRepository().getUserById(id)
             if (user != null) {
-                println("${user.name}! Why haven't you completed your exercise yet?!")
+                logger.info("\n\n [***] ${user.name}! Why haven't you completed your exercise yet?! [***] \n\n")
                 appendDomainEvent(user)
             } else {
-                throw Exception("User with id $id not found")
+                val errorMessage = "User with id $id not found"
+                logger.error(errorMessage)
+                throw Exception(errorMessage)
             }
         }
     }

@@ -6,15 +6,18 @@ import com.ryanzidago.ariviv.domain_events.DomainEventType
 import com.ryanzidago.ariviv.domain_models.User
 import com.ryanzidago.ariviv.repositories.DomainEventRepository
 import com.ryanzidago.ariviv.repositories.UserRepository
+import com.ryanzidago.getLogger
 
 class RegisterUserService {
+    private val logger = getLogger()
+
     fun perform(name: String, email: String): User {
         val user = createUser(name, email)
         createUserRegisteredDomainEvent(user)
         createUserEnrolledInExerciseProgram(user)
 
         for (domainEvent in domainEvents) {
-            println("${domainEvent.type}::${domainEvent.payload}")
+            logger.info("${domainEvent.type}::${domainEvent.payload}")
         }
 
         return user
