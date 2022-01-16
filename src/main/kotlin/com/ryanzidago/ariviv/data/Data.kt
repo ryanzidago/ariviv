@@ -17,7 +17,7 @@ var users = mutableListOf<User>(
 )
 
 var domainEvents = mutableListOf<DomainEvent>()
-val state = HashMap<UUID, LocalDateTime>()
+var state = HashMap<UUID, LocalDateTime>()
 
 fun defaultUsers(): MutableList<User> {
     return mutableListOf<User>(
@@ -29,4 +29,8 @@ fun defaultUsers(): MutableList<User> {
 
 fun defaultDomainEvents(): MutableList<DomainEvent> {
     return mutableListOf<DomainEvent>()
+}
+
+fun defaultState(): HashMap<UUID, LocalDateTime>{
+    return HashMap<UUID, LocalDateTime>()
 }

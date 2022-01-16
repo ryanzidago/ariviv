@@ -31,7 +31,6 @@ class MarkExerciseSessionAsFinishedService {
         val finishedAt = LocalDateTime.now()
         state[user.id] = finishedAt
         return finishedAt
-
     }
 
     private fun createExerciseSessionMarkedAsFinishedDomainEvent(user: User, finishedAt: LocalDateTime) {
@@ -42,7 +41,4 @@ class MarkExerciseSessionAsFinishedService {
         val domainEvent = DomainEvent(DomainEventType.ExerciseSessionMarkedAsFinished, payload)
         DomainEventRepository().appendDomainEvent(domainEvent)
     }
-
-
-
 }
