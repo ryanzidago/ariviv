@@ -35,7 +35,7 @@ REMINDER_TO_EXERCISE_DELAY_IN_MS=3000
 1. a user needs to register first
 2. every registered user is automatically enrolled in a so called exercise routine (except for the users that were automatically seeded in the application)
 3. their exercise routine only starts after they have marked their first exercise session as complete
-4. if they have not marked an exercise routine as complete recently, a log message is printed to the console and sent to disc.
+4. if they have not marked an exercise routine as complete recently, a reminder to exercise is "sent" to them (in the form of a log message being displayed on the console and written to the disk).
 
 ## How the application handles requests
 1. a request comes in via the [GraphQL API](src/main/kotlin/com/ryanzidago/ariviv/graphql/GraphQLSchema.kt)
