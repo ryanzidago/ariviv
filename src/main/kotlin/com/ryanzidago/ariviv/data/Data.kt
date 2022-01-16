@@ -10,7 +10,7 @@ var users = mutableListOf<User>(
     User("Julie", "julie@email.fr")
 )
 
-val domainEvents = mutableListOf<DomainEvent>()
+var domainEvents = mutableListOf<DomainEvent>()
 val state = HashMap<String, LocalDateTime>()
 
 fun defaultUsers(): MutableList<User> {
@@ -19,4 +19,8 @@ fun defaultUsers(): MutableList<User> {
         User("Günther", "guenther@email.de"),
         User("Julie", "julie@email.fr")
     )
+}
+
+fun defaultDomainEvents(): MutableList<DomainEvent> {
+    return mutableListOf<DomainEvent>()
 }

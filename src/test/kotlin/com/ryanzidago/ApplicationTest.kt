@@ -81,8 +81,6 @@ class ApplicationTest {
 
     @Test
     fun errorIsThrownIfNoUserCouldBeFoundWhenAttemptingToMarkAnExerciseSessionAsFinished() = withTestApplication(Application::module) {
-        users = defaultUsers()
-
         val markExerciseSessionAsFinishedMutation = "{\"operationName\":null,\"variables\":{},\"query\":\"mutation {\\n  markExerciseSessionAsFinished(name: \\\"Wolfgang\\\")\\n}\\n\"}"
         val expectedResponse = "{\"errors\":[{\"message\":\"No user with name Wolfgang could be found\",\"locations\":[{\"line\":2,\"column\":3}],\"path\":[]}]}"
 
