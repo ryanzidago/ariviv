@@ -22,7 +22,6 @@ class SendReminderToExerciseService() {
         GlobalScope.launch(Dispatchers.IO) {
             while (true) {
                 delay(timeToWaitBeforeCheckingIfReminderToExerciseShouldBeSentInMS)
-                println(state)
                 for ((id, lastExerciseSessionFinishedAt) in state) {
                     send(id, lastExerciseSessionFinishedAt)
                 }
