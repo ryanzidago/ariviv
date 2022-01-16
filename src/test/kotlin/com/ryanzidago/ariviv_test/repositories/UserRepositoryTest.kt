@@ -1,6 +1,7 @@
 package com.ryanzidago.ariviv_test.repositories
 
 import com.ryanzidago.ariviv.data.defaultUsers
+import com.ryanzidago.ariviv.data.jeanUUID
 import com.ryanzidago.ariviv.data.users
 import com.ryanzidago.ariviv.domain_models.User
 import com.ryanzidago.ariviv.repositories.UserRepository
@@ -36,6 +37,12 @@ class UserRepositoryTest {
 
         val nonExistingUser = UserRepository().getUserByName("Hugo")
         assert(nonExistingUser == null)
+    }
+
+    @Test
+    fun getUserByIdTest() {
+        val user = UserRepository().getUserById(jeanUUID)
+        assertEquals(user, User("Jean", "jean@email.fr", jeanUUID))
     }
 
     @Test

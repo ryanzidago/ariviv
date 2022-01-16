@@ -28,14 +28,11 @@ class RegisterUserService {
         return user
     }
 
-    private fun updateLastExerciseSessionFinishedAt(user: User) {
-        state[user.name] = LocalDateTime.now()
-    }
-
     private fun createUserRegisteredDomainEvent(user: User) {
         val payload = HashMap<Any, Any>()
         payload["name"] = user.name
         payload["email"] = user.email
+        payload["id"] = user.id
 
         val userRegisteredDomainEvent =  DomainEvent(DomainEventType.UserRegistered, payload)
         DomainEventRepository().appendDomainEvent(userRegisteredDomainEvent)
@@ -45,6 +42,7 @@ class RegisterUserService {
         val payload = HashMap<Any, Any>()
         payload["name"] = user.name
         payload["email"] = user.email
+        payload["id"] = user.id
 
         val userEnrolledInExerciseRoutine = DomainEvent(DomainEventType.UserEnrolledInExerciseRoutine, payload)
         DomainEventRepository().appendDomainEvent(userEnrolledInExerciseRoutine)

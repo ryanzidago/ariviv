@@ -3,6 +3,7 @@ package com.ryanzidago.ariviv.repositories
 
 import com.ryanzidago.ariviv.data.users
 import com.ryanzidago.ariviv.domain_models.User
+import java.util.*
 
 class UserRepository {
     fun createUser(user: User) {
@@ -15,6 +16,10 @@ class UserRepository {
 
     fun getUserByName(name: String): User? {
         return users.find { it.name == name }
+    }
+
+    fun getUserById(id: UUID): User? {
+        return users.find { it.id == id }
     }
 
     fun listUsers(): List<User> {

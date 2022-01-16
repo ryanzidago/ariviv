@@ -9,15 +9,17 @@ import com.ryanzidago.ariviv.repositories.DomainEventRepository
 import com.ryanzidago.ariviv.repositories.UserRepository
 import io.ktor.features.*
 import java.time.LocalDateTime
+import java.util.*
+import kotlin.collections.HashMap
 
 class MarkExerciseSessionAsFinishedService {
-    fun perform(name: String) {
-        val user = UserRepository().getUserByName(name)
+    fun perform(id: UUID) {
+        val user = UserRepository().getUserById(id)
         if (user != null) {
             val finishedAt = updateExerciseFinishedAtForUser(user)
             createExerciseSessionMarkedAsFinishedDomainEvent(user, finishedAt)
         } else {
-            throw NotFoundException("No user with name $name could be found")
+            throw NotFoundException("No user with id $id could be found")
         }
 
         for (domainEvent in domainEvents) {
@@ -27,7 +29,7 @@ class MarkExerciseSessionAsFinishedService {
 
     private fun updateExerciseFinishedAtForUser(user: User): LocalDateTime {
         val finishedAt = LocalDateTime.now()
-        state[user.name] = finishedAt
+        state[user.id] = finishedAt
         return finishedAt
 
     }
@@ -35,6 +37,7 @@ class MarkExerciseSessionAsFinishedService {
     private fun createExerciseSessionMarkedAsFinishedDomainEvent(user: User, finishedAt: LocalDateTime) {
         val payload = HashMap<Any, Any>()
         payload["user"] = user.name
+        payload["id"] = user.id
         payload["finishedAt"] = finishedAt
         val domainEvent = DomainEvent(DomainEventType.ExerciseSessionMarkedAsFinished, payload)
         DomainEventRepository().appendDomainEvent(domainEvent)

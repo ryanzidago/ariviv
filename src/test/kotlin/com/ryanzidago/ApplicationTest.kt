@@ -1,20 +1,14 @@
 package com.ryanzidago
 
-import com.ryanzidago.ariviv.data.defaultUsers
-import com.ryanzidago.ariviv.data.domainEvents
-import com.ryanzidago.ariviv.data.users
+import com.ryanzidago.ariviv.data.*
 import com.ryanzidago.ariviv.domain_events.DomainEvent
 import com.ryanzidago.ariviv.domain_events.DomainEventType
-import com.ryanzidago.ariviv.domain_models.User
-import com.ryanzidago.ariviv.repositories.DomainEventRepository
-import io.ktor.routing.*
 import io.ktor.http.*
 import io.ktor.application.*
-import io.ktor.response.*
-import io.ktor.request.*
 import kotlin.test.*
 import io.ktor.server.testing.*
-import com.ryanzidago.plugins.*
+import java.util.*
+import kotlin.collections.HashMap
 
 class ApplicationTest {
     @Test
@@ -70,8 +64,8 @@ class ApplicationTest {
 
     @Test
     fun exerciseSessionsCanBeMarkedAsFinishedViaGraphQL() = withTestApplication(Application::module) {
-        val expectedResponse = "{\"data\":{\"markExerciseSessionAsFinished\":\"Congrats Jean! You finished a session full of exercises!\"}}"
-        val markExerciseSessionAsFinishedMutation = "{\"operationName\":null,\"variables\":{},\"query\":\"mutation {\\n  markExerciseSessionAsFinished(name: \\\"Jean\\\")\\n}\\n\"}"
+        val expectedResponse = "{\"data\":{\"markExerciseSessionAsFinished\":\"User with id $jeanUUID has finished a session full of exercises!\"}}"
+        val markExerciseSessionAsFinishedMutation = "{\"operationName\":null,\"variables\":{},\"query\":\"mutation {\\n  markExerciseSessionAsFinished(id: \\\"${jeanUUID}\\\")\\n}\\n\"}"
 
         with(handleRequest(HttpMethod.Post, "/graphql") {
             addHeader(HttpHeaders.ContentType, ContentType.Application.Json.toString())
@@ -85,23 +79,27 @@ class ApplicationTest {
 
     @Test
     fun usersReceiveReminderToExerciseAfterTheyHaveMarkedAnExerciseSessionAsFinishedAndTheyHaveNotExercisesRecently() = withTestApplication(Application::module) {
-        val markExerciseSessionAsFinishedMutation = "{\"operationName\":null,\"variables\":{},\"query\":\"mutation {\\n  markExerciseSessionAsFinished(name: \\\"Jean\\\")\\n}\\n\"}"
+        val markExerciseSessionAsFinishedMutation = "{\"operationName\":null,\"variables\":{},\"query\":\"mutation {\\n  markExerciseSessionAsFinished(id: \\\"${jeanUUID}\\\")\\n}\\n\"}"
         val payload = HashMap<Any, Any>()
         payload["name"] = "Jean"
+        payload["email"] = "jean@email.fr"
+        payload["id"] = jeanUUID
         val expectedDomainEvent = DomainEvent(DomainEventType.ReminderToStartExerciseSessionSent, payload)
 
         with(handleRequest(HttpMethod.Post, "/graphql") {
             addHeader(HttpHeaders.ContentType, ContentType.Application.Json.toString())
             setBody(markExerciseSessionAsFinishedMutation)
         }) {
+            Thread.sleep(100)
             assert(domainEvents.contains(expectedDomainEvent))
         }
     }
 
     @Test
     fun errorIsThrownIfNoUserCouldBeFoundWhenAttemptingToMarkAnExerciseSessionAsFinished() = withTestApplication(Application::module) {
-        val markExerciseSessionAsFinishedMutation = "{\"operationName\":null,\"variables\":{},\"query\":\"mutation {\\n  markExerciseSessionAsFinished(name: \\\"Wolfgang\\\")\\n}\\n\"}"
-        val expectedResponse = "{\"errors\":[{\"message\":\"No user with name Wolfgang could be found\",\"locations\":[{\"line\":2,\"column\":3}],\"path\":[]}]}"
+        val uuid = UUID.randomUUID()
+        val markExerciseSessionAsFinishedMutation = "{\"operationName\":null,\"variables\":{},\"query\":\"mutation {\\n  markExerciseSessionAsFinished(id: \\\"${uuid}\\\")\\n}\\n\"}"
+        val expectedResponse = "{\"errors\":[{\"message\":\"No user with id $uuid could be found\",\"locations\":[{\"line\":2,\"column\":3}],\"path\":[]}]}"
 
         with(handleRequest(HttpMethod.Post, "/graphql") {
             addHeader(HttpHeaders.ContentType, ContentType.Application.Json.toString())
