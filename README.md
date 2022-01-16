@@ -12,6 +12,9 @@ docker-compose up --build
 
 It is also possible to not source the `.env` file and use the application's default configuration.
 ## Extras
-+ [:heavy_check_mark:] [Automated test](src/test/kotlin/com/ryanzidago)
-+ [:heavy_check_mark:] GraphQL Schema documentation automatically generated with [graphdoc](https://github.com/2fd/graphdoc#static-page-generator-for-documenting-graphql-schema) available offline [at](src/main/resources/graphql/doc) or online [at](http://localhost:8080/graphql/doc/index.html)
-+ [:heavy_check_mark:] Containerisation with [Docker](Dockerfile) and [docker-compose](docker-compose.yml)
+
+|Status|Task|
+|-|-|
+[:heavy_check_mark:] | [Automated test](src/test/kotlin/com/ryanzidago)
+[:heavy_check_mark:] | GraphQL Schema documentation automatically generated with [graphdoc](https://github.com/2fd/graphdoc#static-page-generator-for-documenting-graphql-schema) available offline [at](src/main/resources/graphql/doc) or online [at](http://localhost:8080/graphql/doc/index.html)
+[:heavy_check_mark:] | Containerisation with [Docker](Dockerfile) and [docker-compose](docker-compose.yml)
