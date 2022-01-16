@@ -47,7 +47,7 @@ REMINDER_TO_EXERCISE_DELAY_IN_MS=3000
 
 |Status|Task|
 |-|-|
-[:heavy_check_mark:] | [Automated tests](src/test/kotlin/com/ryanzidago)
-[:heavy_check_mark:] | GraphQL Schema documentation generated with [graphdoc](https://github.com/2fd/graphdoc#static-page-generator-for-documenting-graphql-schema) available offline [here](src/main/resources/graphql/doc) or online [here](http://localhost:8080/graphql/doc/index.html)
-[:heavy_check_mark:] | Containerisation with [Docker](Dockerfile) and [docker-compose](docker-compose.yml)
-[:heavy_check_mark:] | Logs written to a file (see [logback config](src/main/resources/logback.xml))
+:heavy_check_mark: | [Automated tests](src/test/kotlin/com/ryanzidago)
+:heavy_check_mark: | GraphQL Schema documentation generated with [graphdoc](https://github.com/2fd/graphdoc#static-page-generator-for-documenting-graphql-schema) available offline [here](src/main/resources/graphql/doc) or online [here](http://localhost:8080/graphql/doc/index.html)
+:heavy_check_mark: | Containerisation with [Docker](Dockerfile) and [docker-compose](docker-compose.yml)
+:heavy_check_mark: | Logs written to a file (see [logback config](src/main/resources/logback.xml))
