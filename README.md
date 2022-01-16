@@ -1,6 +1,6 @@
 # ariviv
 
-Ariviv is an application built with Kotlin, Ktor & GraphQL. The data is stored in-memory, without the use of a database.
+ariviv is an application built with Kotlin, Ktor & GraphQL. The data is stored in-memory, without the use of a database.
 
 ## Starting the application
 
