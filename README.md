@@ -1,6 +1,6 @@
 # ariviv
 
-Ariviv is an application built with Kotlin, Ktor & GraphQL. The data is stored in-memory, without the use of a database.
+ariviv is an application built with Kotlin, Ktor & GraphQL. The data is stored in-memory, without the use of a database.
 
 ## Starting the application
 
@@ -17,7 +17,13 @@ docker-compose up --build
 source .env
 ./gradlew run
 ```
-It is also possible to not source the `.env` file and use the application's default configuration.
+It is also possible to not source the [.env](.env) file and use the application's default configuration. `.env` contains two environment variables which you can change to determine how often users should receive notifications to remind them to exercise:
+
+```
+TIME_TO_WAIT_BEFORE_CHECKING_IF_REMINDER_TO_EXERCISE_SHOULD_BE_SENT_IN_MS
+REMINDER_TO_EXERCISE_DELAY_IN_MS
+```
+
 
 ## How to use the application
 1. visit the GraphQL playground [endpoint](http://localhost:8080/graphql) 
