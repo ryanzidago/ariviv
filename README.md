@@ -41,7 +41,7 @@ REMINDER_TO_EXERCISE_DELAY_IN_MS
 1. a request comes in via the [GraphQL API](src/main/kotlin/com/ryanzidago/ariviv/graphql/GraphQLSchema.kt)
 2. the application calls the [service](src/main/kotlin/com/ryanzidago/ariviv/application_services) required to handle the request
 3. the application service fetches the necessary [domain model](src/main/kotlin/com/ryanzidago/ariviv/domain_models) from a [repository](src/main/kotlin/com/ryanzidago/ariviv/repositories), updates it, and send it back to the repository to be "saved"
-4. finally, one or severals [domain events](src/main/kotlin/com/ryanzidago/ariviv/domain_events/DomainEvent.kt) are "appended" to a list of all current domain events that happened in the past
+4. finally, one or severals [domain events](src/main/kotlin/com/ryanzidago/ariviv/domain_events/DomainEvent.kt) are appended to a list of all current domain events that happened in the past
 
 ## Extras
 
