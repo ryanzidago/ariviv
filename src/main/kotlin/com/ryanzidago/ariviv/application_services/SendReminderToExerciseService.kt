@@ -7,7 +7,7 @@ import kotlinx.coroutines.*
 import java.time.LocalDateTime
 import java.time.Duration
 
-class ExerciseReminderService() {
+class SendReminderToExerciseService() {
     fun schedule() {
         GlobalScope.launch(Dispatchers.IO) {
             while (true) {

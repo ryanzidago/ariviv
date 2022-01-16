@@ -2,7 +2,7 @@ package com.ryanzidago
 
 import io.ktor.application.*
 import com.apurebase.kgraphql.GraphQL
-import com.ryanzidago.ariviv.application_services.ExerciseReminderService
+import com.ryanzidago.ariviv.application_services.SendReminderToExerciseService
 import com.ryanzidago.plugins.configureRouting
 import com.ryanzidago.ariviv.graphql.schemaValue
 import io.ktor.http.content.*
@@ -17,7 +17,7 @@ fun Application.module(testing: Boolean = false) {
     install(DefaultHeaders)
     configureRouting()
 
-    ExerciseReminderService().schedule()
+    SendReminderToExerciseService().schedule()
 
     routing {
         static("/graphql/doc") {
