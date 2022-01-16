@@ -1,5 +1,8 @@
 package com.ryanzidago
 
+import com.ryanzidago.ariviv.data.defaultUsers
+import com.ryanzidago.ariviv.data.users
+import com.ryanzidago.ariviv.domain_models.User
 import io.ktor.routing.*
 import io.ktor.http.*
 import io.ktor.application.*
@@ -43,6 +46,7 @@ class ApplicationTest {
             assertEquals(HttpStatusCode.OK, response.status())
             assertEquals(response.content!!, expectedResponse)
         }
+        users = defaultUsers()
     }
 
     @Test
@@ -57,6 +61,7 @@ class ApplicationTest {
             assertEquals(HttpStatusCode.OK, response.status())
             assertEquals(response.content!!, expectedResponse)
         }
+        users = defaultUsers()
     }
 
     @Test
@@ -71,10 +76,13 @@ class ApplicationTest {
             assertEquals(HttpStatusCode.OK, response.status())
             assertEquals(response.content!!, expectedResponse)
         }
+        users = defaultUsers()
     }
 
     @Test
     fun errorIsThrownIfNoUserCouldBeFoundWhenAttemptingToMarkAnExerciseSessionAsFinished() = withTestApplication(Application::module) {
+        users = defaultUsers()
+
         val markExerciseSessionAsFinishedMutation = "{\"operationName\":null,\"variables\":{},\"query\":\"mutation {\\n  markExerciseSessionAsFinished(name: \\\"Wolfgang\\\")\\n}\\n\"}"
         val expectedResponse = "{\"errors\":[{\"message\":\"No user with name Wolfgang could be found\",\"locations\":[{\"line\":2,\"column\":3}],\"path\":[]}]}"
 
@@ -85,5 +93,7 @@ class ApplicationTest {
             assertEquals(HttpStatusCode.OK, response.status())
             assertEquals(response.content!!, expectedResponse)
         }
+        users = defaultUsers()
+
     }
 }

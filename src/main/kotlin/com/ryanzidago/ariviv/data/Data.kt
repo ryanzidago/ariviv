@@ -4,7 +4,7 @@ import com.ryanzidago.ariviv.domain_events.DomainEvent
 import com.ryanzidago.ariviv.domain_models.User
 import java.time.LocalDateTime
 
-val users = mutableListOf<User>(
+var users = mutableListOf<User>(
     User("Jean", "jean@email.fr"),
     User("Günther", "guenther@email.de"),
     User("Julie", "julie@email.fr")
@@ -12,3 +12,11 @@ val users = mutableListOf<User>(
 
 val domainEvents = mutableListOf<DomainEvent>()
 val state = HashMap<String, LocalDateTime>()
+
+fun defaultUsers(): MutableList<User> {
+    return mutableListOf<User>(
+        User("Jean", "jean@email.fr"),
+        User("Günther", "guenther@email.de"),
+        User("Julie", "julie@email.fr")
+    )
+}
