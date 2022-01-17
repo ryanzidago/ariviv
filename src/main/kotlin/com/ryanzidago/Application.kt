@@ -22,6 +22,11 @@ fun main(args: Array<String>): Unit =
 
 @Suppress("unused") // application.conf references the main function. This annotation prevents the IDE from marking it as unused.
 fun Application.module(testing: Boolean = false) {
+    val logger = getLogger()
+
+    logger.info("timeToWaitBeforeCheckingIfReminderToExerciseShouldBeSentInMS=$timeToWaitBeforeCheckingIfReminderToExerciseShouldBeSentInMS")
+    logger.info("reminderToExerciseDelayInMS=$reminderToExerciseDelayInMS")
+
     install(DefaultHeaders)
     configureRouting()
 
