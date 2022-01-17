@@ -10,7 +10,7 @@
         <file>log/ariviv.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
-            <fileNamePattern>logariviv.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>log/ariviv.%d{yyyy-MM-dd}.log</fileNamePattern>
 
             <!-- keep 90 days' worth of history capped at 3GB total size -->
             <maxHistory>1</maxHistory>
