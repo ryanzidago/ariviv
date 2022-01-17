@@ -1,6 +1,9 @@
 version: '2'
 services:
   web:
+    environment:
+      TIME_TO_WAIT_BEFORE_CHECKING_IF_REMINDER_TO_EXERCISE_SHOULD_BE_SENT_IN_MS: "3000"
+      REMINDER_TO_EXERCISE_DELAY_IN_MS: "3000"
     build:
       context: ./
       dockerfile: Dockerfile

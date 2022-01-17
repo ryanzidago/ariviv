@@ -1,6 +1,9 @@
 # Use the official gradle image to create a build artifact.
 FROM gradle:7.3.3 as builder
 
+ENV TIME_TO_WAIT_BEFORE_CHECKING_IF_REMINDER_TO_EXERCISE_SHOULD_BE_SENT_IN_MS=3000
+ENV REMINDER_TO_EXERCISE_DELAY_IN_MS=3000
+
 # Copy local code to the container image.
 COPY build.gradle.kts .
 COPY gradle.properties .
