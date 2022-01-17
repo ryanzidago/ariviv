@@ -39,6 +39,11 @@ docker-compose up --build
 3. the application service fetches the necessary [domain model](src/main/kotlin/com/ryanzidago/ariviv/domain_models) from a [repository](src/main/kotlin/com/ryanzidago/ariviv/repositories), updates it, and send it back to the repository to be "saved"
 4. finally, one or severals [domain events](src/main/kotlin/com/ryanzidago/ariviv/domain_events/DomainEvent.kt) are appended to a list of all current domain events that happened in the past
 
+## How to test the application
+```
+./gradlew test
+```
+
 ## Extras
 
 |Status|Task|
